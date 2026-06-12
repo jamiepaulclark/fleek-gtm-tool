@@ -39,7 +39,7 @@ def stage_chip(stage):
 
 # ── Auto-load data ─────────────────────────────────────────────────────────
 
-DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "pipeline.xlsx")
+DATA_PATH = os.path.join(os.path.expanduser("~"), "Downloads", "fleek-gtm-tool", "data", "pipeline.xlsx")
 
 @st.cache_data(show_spinner=False)
 def load_data(include_day2=False):
