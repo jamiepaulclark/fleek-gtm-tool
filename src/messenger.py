@@ -201,26 +201,69 @@ def _fallback_message(row: dict, action: str) -> str:
             )
 
         elif action == "dm_follow_up_warm":
-            if last_text and len(last_text) > 5:
-                # Reference what they said
+            lt = last_text.lower() if last_text else ""
+            if "send me" in lt or "bundle" in lt or "list" in lt or "what do you have" in lt:
+                return (
+                    f"Hey @{handle} — sending that over now. "
+                    f"Based on {vel_note}, I've put together a mix of basics and statement pieces. "
+                    f"Let me know if you want me to weight it differently."
+                )
+            elif "price" in lt or "cost" in lt or "how much" in lt or "payout" in lt or "work" in lt:
+                return (
+                    f"Hey @{handle} — great question. "
+                    f"Pricing is per bundle at wholesale — typically £3–8 per piece depending on category and grade. "
+                    f"Happy to send a proper breakdown if that helps?"
+                )
+            elif "next month" in lt or "later" in lt or "not now" in lt or "busy" in lt:
+                return (
+                    f"Hey @{handle} — no rush at all, just wanted to stay on your radar. "
+                    f"We do get new drops in regularly so happy to flag when something comes in that fits what you sell. "
+                    f"Still on Depop mainly?"
+                )
+            elif "call" in lt or "chat" in lt or "speak" in lt or "fri" in lt or "monday" in lt:
+                return (
+                    f"Hey @{handle} — yes, happy to jump on a call. "
+                    f"What time works best for you? I'm flexible this week."
+                )
+            elif last_text and len(last_text) > 5:
                 return (
                     f"Hey @{handle} — appreciate you getting back to me. "
-                    f"Based on what you mentioned, I can put together a tailored bundle. "
-                    f"What's the mix you move fastest — basics, graphic tees, denim?"
+                    f"Given {vel_note}, I think we could genuinely save you a lot of sourcing time. "
+                    f"What categories are you buying most right now?"
                 )
             else:
                 return (
-                    f"Hey @{handle} — great to hear from you! "
-                    f"Given {vel_note}, I reckon we could save you a lot of sourcing time. "
-                    f"What categories move fastest for you right now?"
+                    f"Hey @{handle} — just following up. "
+                    f"Given {vel_note}, I think bulk sourcing through us could work well for you. "
+                    f"Worth a quick look at what we've got in stock?"
                 )
 
         elif action == "dm_follow_up_negotiation":
-            return (
-                f"Hey @{handle} — wanted to pick back up where we left off. "
-                f"Happy to put together a sample order first so you can check the quality before committing to anything bigger. "
-                f"Want me to send over what that would look like?"
-            )
+            lt = last_text.lower() if last_text else ""
+            if "call" in lt or "fri" in lt or "monday" in lt or "chat" in lt or "speak" in lt:
+                return (
+                    f"Hey @{handle} — confirming the call, looking forward to it. "
+                    f"I'll have a couple of bundle options ready based on what you sell. "
+                    f"Anything specific you want me to pull together beforehand?"
+                )
+            elif "busy" in lt or "this week" in lt or "next week" in lt:
+                return (
+                    f"Hey @{handle} — totally understand, no rush. "
+                    f"When things calm down a bit, I can have a sample order ready to go whenever you are. "
+                    f"Just give me a shout."
+                )
+            elif "platform" in lt or "other" in lt or "already" in lt:
+                return (
+                    f"Hey @{handle} — makes sense, no pressure at all. "
+                    f"If you ever want to compare what we've got on price or selection, happy to send something over. "
+                    f"What platform are you using at the moment?"
+                )
+            else:
+                return (
+                    f"Hey @{handle} — wanted to pick back up where we left off. "
+                    f"Happy to put together a sample order first so you can check the quality before committing to anything bigger. "
+                    f"Want me to send over what that would look like?"
+                )
 
         elif action == "dm_confirm_call":
             return (
